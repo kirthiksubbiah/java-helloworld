@@ -6,12 +6,12 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/jkbarathkumar/java-helloworld.git'
+                git branch: 'main', url: 'https://github.com/kirthiksubbiah/java-helloworld'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t barathkumar29/helloworld-java:v1 .'
+                sh 'docker build -t kirthiksubbiah/helloworld-java:v1 .'
             }
         }
         stage('Push to DockerHub') {
@@ -19,7 +19,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                    docker push barathkumar29/helloworld-java:v1
+                    docker push kirthiksubbiah/helloworld-java:v1
                     '''
                 }
             }
